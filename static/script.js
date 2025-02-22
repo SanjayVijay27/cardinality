@@ -32,6 +32,7 @@ function renderCards(data) {
         .style("padding", "10px")
         .style("box-sizing", "border-box")
         .style("cursor", "move")
+        .attr("data-tag", "card") // Add a custom attribute to identify draggable elements
         .call(d3.drag()
             .on("start", dragStarted)
             .on("drag", dragged)
@@ -62,13 +63,20 @@ function renderCards(data) {
     cards.exit().remove();
 }
 
+let offsetX, offsetY;
+
 /**
  * Event handler for when dragging starts on a card.
  * @param {Event} event - The mouse event.
  * @param {Object} d - The data bound to the card.
  */
 function dragStarted(event, d) {
-    d3.select(this).raise().classed("active", true);
+    if (event.sourceEvent.target.tagName !== 'TEXTAREA') {
+        d3.select(this).raise().classed("active", true);
+        const card = d3.select(this);
+        offsetX = event.x - parseFloat(card.style("left"));
+        offsetY = event.y - parseFloat(card.style("top"));
+    }
 }
 
 /**
@@ -77,9 +85,11 @@ function dragStarted(event, d) {
  * @param {Object} d - The data bound to the card.
  */
 function dragged(event, d) {
-    d3.select(this)
-        .style("left", `${d.x = event.x}px`)
-        .style("top", `${d.y = event.y}px`);
+    if (event.sourceEvent.target.tagName !== 'TEXTAREA') {
+        d3.select(this)
+            .style("left", `${event.x - offsetX}px`)
+            .style("top", `${event.y - offsetY}px`);
+    }
 }
 
 /**
@@ -88,8 +98,10 @@ function dragged(event, d) {
  * @param {Object} d - The data bound to the card.
  */
 function dragEnded(event, d) {
-    d3.select(this).classed("active", false);
-    sendCardUpdate(d);
+    if (event.sourceEvent.target.tagName !== 'TEXTAREA') {
+        d3.select(this).classed("active", false);
+        sendCardUpdate(d);
+    }
 }
 
 /**
