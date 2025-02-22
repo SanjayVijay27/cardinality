@@ -8,10 +8,14 @@ let cardsData = [
     { id: "card3", x: 350, y: 50, text: "Card 3" }
 ];
 
-const edgesData = [
+let edgesData = [
     { startNode: "card1", endNode: "card2" },
     { startNode: "card2", endNode: "card3" }
 ];
+
+let activeEdgeMaker = null;
+let tempArrow = null;
+let startEdgeMaker = null;
 
 function renderCards() {
     const cards = canvas.selectAll(".card")
@@ -23,6 +27,12 @@ function renderCards() {
         .attr("id", d => d.id)
         .style("left", d => `${d.x}px`)
         .style("top", d => `${d.y}px`)
+        .on("mouseover", function() {
+            d3.select(this).classed("hover", true);
+        })
+        .on("mouseout", function() {
+            d3.select(this).classed("hover", false);
+        })
         .call(d3.drag()
             .on("start", dragStarted)
             .on("drag", dragged)
@@ -37,6 +47,42 @@ function renderCards() {
             const cardData = card.datum();
             cardData.text = this.value;
             sendCardUpdate(cardData);
+        });
+
+    newCards.append("div")
+        .attr("class", "edgeMaker left")
+        .style("left", "-10px")
+        .style("top", "50%")
+        .on("mouseover", function() {
+            d3.select(this).classed("hover", true);
+        })
+        .on("mouseout", function() {
+            d3.select(this).classed("hover", false);
+        })
+        .on("mousedown", function(event, d) {
+            event.stopPropagation();
+            activeEdgeMaker = this;
+            startEdgeMaker = this;
+            d3.selectAll(".edgeMaker").classed("active", true);
+            startDraggingArrow(event, this);
+        });
+
+    newCards.append("div")
+        .attr("class", "edgeMaker right")
+        .style("right", "-10px")
+        .style("top", "50%")
+        .on("mouseover", function() {
+            d3.select(this).classed("hover", true);
+        })
+        .on("mouseout", function() {
+            d3.select(this).classed("hover", false);
+        })
+        .on("mousedown", function(event, d) {
+            event.stopPropagation();
+            activeEdgeMaker = this;
+            startEdgeMaker = this;
+            d3.selectAll(".edgeMaker").classed("active", true);
+            startDraggingArrow(event, this);
         });
 
     cards.exit().remove();
@@ -56,6 +102,46 @@ function renderEdges() {
     updateEdges();
 }
 
+function startDraggingArrow(event, edgeMaker) {
+    const edgeMakerPosition = getEdgeMakerPosition(edgeMaker);
+    tempArrow = svgCanvas.append("line")
+        .attr("class", "arrow")
+        .attr("x1", edgeMakerPosition.x)
+        .attr("y1", edgeMakerPosition.y)
+        .attr("x2", edgeMakerPosition.x)
+        .attr("y2", edgeMakerPosition.y);
+
+    d3.select(window)
+        .on("mousemove.dragArrow", function(event) {
+            const [x, y] = d3.pointer(event);
+            tempArrow.attr("x2", x).attr("y2", y);
+        })
+        .on("mouseup.dragArrow", function(event) {
+            const [x, y] = d3.pointer(event);
+            const targetEdgeMaker = document.elementFromPoint(x, y);
+            if (targetEdgeMaker && targetEdgeMaker.classList.contains("edgeMaker")) {
+                const startCardId = d3.select(startEdgeMaker.parentNode).attr("id");
+                const endCardId = d3.select(targetEdgeMaker.parentNode).attr("id");
+                if (startCardId !== endCardId) {
+                    edgesData.push({ startNode: startCardId, endNode: endCardId });
+                    renderEdges();
+                }
+            }
+            tempArrow.remove();
+            tempArrow = null;
+            startEdgeMaker = null;
+            d3.select(window).on("mousemove.dragArrow", null).on("mouseup.dragArrow", null);
+        });
+}
+
+function getEdgeMakerPosition(edgeMaker) {
+    const card = d3.select(edgeMaker.parentNode);
+    const side = d3.select(edgeMaker).classed("right") ? "right" : "left";
+    const x = parseFloat(card.style("left")) + (side === "right" ? card.node().offsetWidth : 0);
+    const y = parseFloat(card.style("top")) + card.node().offsetHeight / 2;
+    return { x, y };
+}
+
 canvas.on("contextmenu", function(event) {
     event.preventDefault();
     const [x, y] = d3.pointer(event);
@@ -72,6 +158,8 @@ canvas.selectAll(".card").on("contextmenu", function(event) {
 
 d3.select("body").on("click", function() {
     contextMenu.style("display", "none");
+    d3.selectAll(".edgeMaker").classed("active", false);
+    activeEdgeMaker = null;
 });
 
 d3.select("#addCard").on("click", function() {
@@ -125,22 +213,15 @@ function sendCardUpdate(cardData) {
 
 function updateEdges() {
     svgCanvas.selectAll(".arrow")
-        .attr("x1", d => getCardRightSide(d.startNode).x)
-        .attr("y1", d => getCardRightSide(d.startNode).y)
-        .attr("x2", d => getCardLeftSide(d.endNode).x)
-        .attr("y2", d => getCardLeftSide(d.endNode).y);
+        .attr("x1", d => getEdgeMakerPositionByCardId(d.startNode, "right").x)
+        .attr("y1", d => getEdgeMakerPositionByCardId(d.startNode, "right").y)
+        .attr("x2", d => getEdgeMakerPositionByCardId(d.endNode, "left").x)
+        .attr("y2", d => getEdgeMakerPositionByCardId(d.endNode, "left").y);
 }
 
-function getCardRightSide(cardId) {
+function getEdgeMakerPositionByCardId(cardId, side) {
     const card = d3.select(`#${cardId}`);
-    const x = parseFloat(card.style("left")) + card.node().offsetWidth;
-    const y = parseFloat(card.style("top")) + card.node().offsetHeight / 2;
-    return { x, y };
-}
-
-function getCardLeftSide(cardId) {
-    const card = d3.select(`#${cardId}`);
-    const x = parseFloat(card.style("left"));
+    const x = parseFloat(card.style("left")) + (side === "right" ? card.node().offsetWidth : 0);
     const y = parseFloat(card.style("top")) + card.node().offsetHeight / 2;
     return { x, y };
 }

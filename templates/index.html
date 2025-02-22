@@ -70,6 +70,18 @@
         .context-menu ul li:hover {
             background-color: #eee;
         }
+
+        .edgeMaker {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+        .edgeMaker.hover, .card:hover .edgeMaker, .card.active .edgeMaker {
+            box-shadow: 0 0 50px yellow;
+        }
     </style>
 </head>
 <body>
@@ -89,5 +101,7 @@
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
 </body>
 </html>
