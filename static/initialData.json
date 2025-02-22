@@ -1,0 +1,33 @@
+[
+    {
+        "type": "card",
+        "id": "card1",
+        "x": 50,
+        "y": 50,
+        "text": "Card 1"
+    },
+    {
+        "type": "card",
+        "id": "card2",
+        "x": 200,
+        "y": 50,
+        "text": "Card 2"
+    },
+    {
+        "type": "card",
+        "id": "card3",
+        "x": 350,
+        "y": 50,
+        "text": "Card 3"
+    },
+    {
+        "type": "edge",
+        "startNode": "card1",
+        "endNode": "card2"
+    },
+    {
+        "type": "edge",
+        "startNode": "card2",
+        "endNode": "card3"
+    }
+]

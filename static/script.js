@@ -1,27 +1,5 @@
 //frontend UI
 
-// Initialize D3 selections for canvas, SVG canvas, and context menu
-const canvas = d3.select("#canvas");
-const svgCanvas = d3.select("#svgCanvas");
-const contextMenu = d3.select("#contextMenu");
-
-// Initial data for cards and edges
-let cardsData = [
-    { id: "card1", x: 50, y: 50, text: "Card 1" },
-    { id: "card2", x: 200, y: 50, text: "Card 2" },
-    { id: "card3", x: 350, y: 50, text: "Card 3" }
-];
-
-let edgesData = [
-    { startNode: "card1", endNode: "card2" },
-    { startNode: "card2", endNode: "card3" }
-];
-
-// Variables to track active edge maker and temporary arrow
-let activeEdgeMaker = null;
-let tempArrow = null;
-let startEdgeMaker = null;
-
 /**
  * Renders the cards on the canvas.
  */
@@ -50,6 +28,12 @@ function renderCards() {
     newCards.append("textarea")
         .attr("value", d => d.text)
         .text(d => d.text)
+        .on("click", function() {
+            d3.select(this).classed("active", true);
+        })
+        .on("blur", function() {
+            d3.select(this).classed("active", false);
+        })
         .on("change", function(event, d) {
             const card = d3.select(this.parentNode);
             const cardData = card.datum();
@@ -284,6 +268,3 @@ function getEdgeMakerPositionByCardId(cardId, side) {
     return { x, y };
 }
 
-// Initial render of cards and edges
-renderCards();
-renderEdges();
