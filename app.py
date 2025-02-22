@@ -58,10 +58,11 @@ def add_card():
 def delete_card():
     data = request.get_json()
     id = data.get('card_id')
+    print(f"Deleting card {id}")
 
-    # Append the new card to the DataFrame
+    # Delete the card from the dataframe
     global df
-    df = df[df['id'] != id]
+    df = df[df['id'].astype(str) != str(id)]
     df.to_csv('data.csv', index=False)
 
     return jsonify({'status': 'success', 'message': f"Card {id} deleted"})
