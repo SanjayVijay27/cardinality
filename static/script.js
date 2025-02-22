@@ -125,15 +125,22 @@ function sendCardUpdate(cardData) {
 
 function updateEdges() {
     svgCanvas.selectAll(".arrow")
-        .attr("x1", d => getCardCenter(d.startNode).x)
-        .attr("y1", d => getCardCenter(d.startNode).y)
-        .attr("x2", d => getCardCenter(d.endNode).x)
-        .attr("y2", d => getCardCenter(d.endNode).y);
+        .attr("x1", d => getCardRightSide(d.startNode).x)
+        .attr("y1", d => getCardRightSide(d.startNode).y)
+        .attr("x2", d => getCardLeftSide(d.endNode).x)
+        .attr("y2", d => getCardLeftSide(d.endNode).y);
 }
 
-function getCardCenter(cardId) {
+function getCardRightSide(cardId) {
     const card = d3.select(`#${cardId}`);
-    const x = parseFloat(card.style("left")) + card.node().offsetWidth / 2;
+    const x = parseFloat(card.style("left")) + card.node().offsetWidth;
+    const y = parseFloat(card.style("top")) + card.node().offsetHeight / 2;
+    return { x, y };
+}
+
+function getCardLeftSide(cardId) {
+    const card = d3.select(`#${cardId}`);
+    const x = parseFloat(card.style("left"));
     const y = parseFloat(card.style("top")) + card.node().offsetHeight / 2;
     return { x, y };
 }
