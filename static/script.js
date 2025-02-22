@@ -1,11 +1,16 @@
 // Select the canvas element
 const canvas = d3.select("#canvas");
+const contextMenu = d3.select("#contextMenu");
+
+// Initialize cardsData
+let cardsData = [];
 
 // Fetch the initial data from the /init_data endpoint
 d3.json("/init_data").then(data => {
     console.log("Data fetched from /init_data:", data); // Debug log
+    cardsData = data; // Initialize cardsData with fetched data
     // Render the cards on the canvas
-    renderCards(data);
+    renderCards(cardsData);
 }).catch(error => {
     console.error("Error fetching data from /init_data:", error); // Debug log
 });
@@ -15,6 +20,8 @@ d3.json("/init_data").then(data => {
  * @param {Array} data - The data to render.
  */
 function renderCards(data) {
+    console.log("Rendering cards with data:", data); // Debug log
+
     const cards = canvas.selectAll(".card")
         .data(data, d => d.id);
 
@@ -37,7 +44,10 @@ function renderCards(data) {
             .on("start", dragStarted)
             .on("drag", dragged)
             .on("end", dragEnded)
-        );
+        )
+        .on("dblclick", function() {
+            d3.select(this).select("textarea").node().focus();
+        });
 
     newCards.append("textarea")
         .attr("value", d => d.text)
@@ -47,6 +57,9 @@ function renderCards(data) {
         .style("box-sizing", "border-box")
         .style("resize", "none")
         .style("overflow", "auto")
+        .on("mousedown", function(event) {
+            event.stopPropagation(); // Prevent drag from starting when clicking on textarea
+        })
         .on("click", function() {
             d3.select(this).classed("active", true);
         })
@@ -125,3 +138,47 @@ function sendCardUpdate(cardData) {
         console.log(data);
     });
 }
+
+// Context menu event handler for the canvas
+canvas.on("contextmenu", function(event) {
+    event.preventDefault();
+    const [x, y] = d3.pointer(event);
+    contextMenu.style("left", `${x}px`)
+               .style("top", `${y}px`)
+               .style("display", "block");
+    contextMenu.attr("data-x", x);
+    contextMenu.attr("data-y", y);
+});
+
+// Prevent context menu on cards
+canvas.selectAll(".card").on("contextmenu", function(event) {
+    event.stopPropagation();
+});
+
+// Hide context menu on body click
+d3.select("body").on("click", function() {
+    contextMenu.style("display", "none");
+});
+
+// Add card event handler
+d3.select("#addCard").on("click", function() {
+    const x = +contextMenu.attr("data-x");
+    const y = +contextMenu.attr("data-y");
+    addCard(x, y);
+    contextMenu.style("display", "none");
+});
+
+/**
+ * Adds a new card to the canvas.
+ * @param {number} x - The x-coordinate of the new card.
+ * @param {number} y - The y-coordinate of the new card.
+ */
+function addCard(x, y) {
+    const newCardId = `card${cardsData.length + 1}`;
+    const newCardData = { id: newCardId, x, y, text: `Card ${cardsData.length + 1}` };
+    cardsData.push(newCardData);
+    renderCards(cardsData);
+}
+
+// Initial render
+renderCards(cardsData);
