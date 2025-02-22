@@ -29,9 +29,9 @@ function renderCards() {
             .on("end", dragEnded)
         );
 
-    newCards.append("input")
-        .attr("type", "text")
+    newCards.append("textarea")
         .attr("value", d => d.text)
+        .text(d => d.text)
         .on("change", function(event, d) {
             const card = d3.select(this.parentNode);
             const cardData = card.datum();
