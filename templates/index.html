@@ -17,14 +17,15 @@
             height: 100vh;
             background-color: #f0f0f0;
             overflow-y: auto;
-            border-right: 1px solid #ccc;
+            border-left: 1px solid #ccc;
             box-sizing: border-box;
             position: absolute;
+right: 0; /* Move the sidebar to the right side */
             z-index: 2; /* Ensure the sidebar is above the canvas */
         }
         .canvas {
             position: absolute;
-            left: 250px; /* Adjust the canvas position to not cover the sidebar */
+            right: 250px; /* Adjust the canvas position to not cover the sidebar */
             width: calc(100vw - 250px); /* Adjust the canvas width to not cover the sidebar */
             height: 100vh;
             background-color: #f0f0f0;
@@ -79,11 +80,11 @@
     </div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="{{ url_for('static', filename='initVars.js') }}"> </script>
-    <script src="{{ url_for('static', filename='renderFuncs.js') }}"> </script>
+     <script src="{{ url_for('static', filename='renderFuncs.js') }}"> </script>
 
-    <script src="{{ url_for('static', filename='newCard.js') }}"> </script>
+     <script src="{{ url_for('static', filename='newCard.js') }}"> </script>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
     <script src="{{ url_for('static', filename='initRender.js') }}"> </script>
 

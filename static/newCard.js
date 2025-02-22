@@ -53,7 +53,7 @@ function addCard(x, y) {
     const newCardId = cardsData.length + 1;
     const newCardData = { id: newCardId, x, y, text: `Card ${cardsData.length + 1}` };
     cardsData.push(newCardData);
-    reRenderCards();
+    
 
     fetch('/add_card', {
         method: 'POST',
@@ -66,6 +66,7 @@ function addCard(x, y) {
             text: `Card ${cardsData.length}`
         })
     });
+    reRenderCards();
 }
 
 /**
@@ -73,8 +74,8 @@ function addCard(x, y) {
  * @param {string} cardId - The ID of the card to delete.
  */
 function deleteCard(cardId) {
-    cardsData = cardsData.filter(card => card.id !== cardId);
-    reRenderCards();
+    //cardsData = cardsData.filter(card => card.id !== cardId);
+    //reRenderCards();
 
     fetch('/delete_card', {
         method: 'POST',
@@ -89,12 +90,16 @@ function deleteCard(cardId) {
     .then(data => {
         console.log(data);
     });
+
+    reRenderCards();
 }
 
 /**
  * Re-renders all cards from the cardsData.
  */
 function reRenderCards() {
+
+    
     // Clear existing cards
     canvas.selectAll(".card").remove();
 
@@ -103,16 +108,16 @@ function reRenderCards() {
         cardsData = data; // Initialize cardsData with fetched data
         
         // Render the cards on the canvas
-        renderCards(cardsData); //ABSOLUTELY NECESSARY TO AVOID RACE CONDITION. 
-    
+        //renderCards(cardsData); //ABSOLUTELY NECESSARY TO AVOID RACE CONDITION. 
+        // Render cards from cardsData
+        renderCards(cardsData);
     
         // Render the data in rows within a column group
         //renderColumnGroup(cardsData); // Render data in the sidebar
     })
 
 
-    // Render cards from cardsData
-    renderCards(cardsData);
+
 }
 
 renderCards(cardsData);
