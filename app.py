@@ -54,5 +54,17 @@ def add_card():
 
     return jsonify({'status': 'success', 'message': f"Card {new_card['id']} added"})
 
+@app.route('/delete_card', methods=['POST'])
+def delete_card():
+    data = request.get_json()
+    id = data.get('card_id')
+
+    # Append the new card to the DataFrame
+    global df
+    df = df[df['id'] != id]
+    df.to_csv('data.csv', index=False)
+
+    return jsonify({'status': 'success', 'message': f"Card {id} deleted"})
+
 if __name__ == '__main__':
     app.run(debug=True)
