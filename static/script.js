@@ -1,3 +1,4 @@
+
 /**
  * Renders the data in rows within a column group in the sidebar.
  * @param {Array} data - The data to render.

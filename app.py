@@ -20,7 +20,7 @@ def update_card_position():
     new_position = data.get('new_position')
 
     # Update the DataFrame
-    df.loc[df['id'] == card_id, ['x', 'y']] = new_position['x'], new_position['y']
+    df.loc[df['id'] == card_id, ['x', 'y', 'text']] = new_position['x'], new_position['y'], data.get('text')
     df.to_csv('data.csv', index=False)
 
     return jsonify({'status': 'success', 'message': f"Card {card_id} moved to position {new_position}"})
