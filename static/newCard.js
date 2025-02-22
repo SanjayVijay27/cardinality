@@ -1,12 +1,13 @@
 //creating a new card
 
-
 // Context menu event handler for the canvas
 canvas.on("contextmenu", function(event) {
     event.preventDefault();
-    const [x, y] = d3.pointer(event);
-    contextMenu.style("left", `${x}px`)
-               .style("top", `${y}px`)
+    const canvasRect = canvas.node().getBoundingClientRect();
+    const x = event.clientX - canvasRect.left;
+    const y = event.clientY - canvasRect.top;
+    contextMenu.style("left", `${event.clientX}px`)
+               .style("top", `${event.clientY}px`)
                .style("display", "block");
     contextMenu.attr("data-x", x);
     contextMenu.attr("data-y", y);
@@ -51,7 +52,7 @@ function addCard(x, y) {
             new_position: { x: x, y: y },
             text: `Card ${cardsData.length}`
         })
-    })
+    });
 }
 
 renderCards(cardsData);
