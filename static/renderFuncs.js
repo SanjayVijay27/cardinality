@@ -1,4 +1,3 @@
-
 /**
  * Renders the cards on the canvas.
  * @param {Array} data - The data to render.
@@ -54,14 +53,11 @@ function renderCards(data) {
             const card = d3.select(this.parentNode);
             const cardData = card.datum();
             cardData.text = this.value;
-            sendCardUpdate(cardData);
+            sendCardUpdate(cardData); // Call sendCardUpdate when text is edited
         });
 
     cards.exit().remove();
 }
-
-
-
 
 /**
  * Event handler for when dragging starts on a card.
@@ -102,11 +98,6 @@ function dragEnded(event, d) {
     }
 }
 
-
-//=======================================
-
-
-
 /**
  * Sends an update to the server with the new card position.
  * @param {Object} cardData - The data of the card to update.
@@ -128,3 +119,5 @@ function sendCardUpdate(cardData) {
         console.log(data);
     });
 }
+
+renderCards(cardsData);
