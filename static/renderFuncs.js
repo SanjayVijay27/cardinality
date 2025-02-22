@@ -99,6 +99,8 @@ function dragEnded(event, d) {
     if (event.sourceEvent.target.tagName !== 'TEXTAREA') {
         d3.select(this).classed("active", false);
         sendCardUpdate(d);
+        d.x = event.x - offsetX;
+        d.y = event.y - offsetY;
     }
 }
 

@@ -14,7 +14,7 @@ d3.json("/init_data").then(data => {
     console.log("Data fetched from /init_data:", data); // Debug log
     cardsData = data; // Initialize cardsData with fetched data
     // Render the cards on the canvas
-    
+    renderCards(cardsData);
 }).catch(error => {
     console.error("Error fetching data from /init_data:", error); // Debug log
 });
