@@ -32,6 +32,19 @@ function renderCards(data) {
             d3.select(this).select("textarea").node().focus();
         });
 
+    // Add a label to display the card ID
+    newCards.append("div")
+        .attr("class", "card-id-label")
+        .style("position", "absolute")
+        .style("top", "-5px")
+        .style("left", "2px")
+        .style("background-color", "rgba(255, 255, 255, 0.8)")
+        .style("padding", "2px 5px")
+        .style("border-radius", "3px")
+        .style("font-size", "12px")
+        .style("pointer-events", "none") // Ensure the label does not interfere with drag events
+        .text(d => `ID: ${d.id}`);
+
     newCards.append("textarea")
         .attr("value", d => d.text)
         .text(d => d.text)
