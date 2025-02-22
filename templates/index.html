@@ -20,8 +20,8 @@
             background-color: #f0f0f0;
         }
         .card {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             margin: 10px;
             padding: 10px;
             background-color: lightblue;
@@ -29,61 +29,78 @@
             position: absolute;
             cursor: move;
         }
+        .card textarea {
+            width: 100%;
+            height: 80%;
+            box-sizing: border-box;
+            resize: none;
+            overflow: auto;
+        }
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .arrow {
+            fill: none;
+            stroke: black;
+            stroke-width: 2px;
+            marker-end: url(#arrowhead);
+        }
+        .context-menu {
+            position: absolute;
+            display: none;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .context-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .context-menu ul li {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        .context-menu ul li:hover {
+            background-color: #eee;
+        }
+
+        .edgeMaker {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+        }
+        .edgeMaker.hover, .card:hover .edgeMaker, .card.active .edgeMaker {
+            box-shadow: 0 0 50px yellow;
+        }
     </style>
 </head>
 <body>
     <div class="canvas" id="canvas"></div>
+    <svg id="svgCanvas">
+        <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" />
+            </marker>
+        </defs>
+    </svg>
+    <div class="context-menu" id="contextMenu">
+        <ul>
+            <li id="addCard">Add Card</li>
+        </ul>
+    </div>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script>
-        const canvas = d3.select("#canvas");
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 
-        const cardsData = {{ cards_data | tojson }};
-
-        const cards = canvas.selectAll(".card")
-            .data(cardsData)
-            .enter()
-            .append("div")
-            .attr("class", "card")
-            .attr("id", d => d.id)
-            .style("left", d => `${d.x}px`)
-            .style("top", d => `${d.y}px`)
-            .text(d => d.text)
-            .call(d3.drag()
-                .on("start", dragStarted)
-                .on("drag", dragged)
-                .on("end", dragEnded)
-            );
-
-        function dragStarted(event, d) {
-            d3.select(this).raise().classed("active", true);
-        }
-
-        function dragged(event, d) {
-            d3.select(this)
-                .style("left", `${d.x = event.x}px`)
-                .style("top", `${d.y = event.y}px`);
-        }
-
-        function dragEnded(event, d) {
-            d3.select(this).classed("active", false);
-
-            // Send the card position update to the server
-            fetch('/update_card_position', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    card_id: d.id,
-                    new_position: { x: d.x, y: d.y }
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            });
-        }
-    </script>
 </body>
 </html>
