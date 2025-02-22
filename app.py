@@ -15,6 +15,7 @@ def index():
 @app.route('/update_card_position', methods=['POST'])
 def update_card_position():
     data = request.get_json()
+    print(data)
     card_id = data.get('card_id')
     new_position = data.get('new_position')
 
@@ -34,6 +35,24 @@ def init_data():
     data = pd.read_csv('data.csv')
     return data.to_json(orient='records')
     #return send_file('static/initialData.json', mimetype='application/json')
+
+@app.route('/add_card', methods=['POST'])
+def add_card():
+    data = request.get_json()
+    new_card = {
+        'id': data.get('card_id'),
+        'x': data.get('new_position')['x'],
+        'y': data.get('new_position')['y'],
+        'text': data.get('text')
+    }
+
+    # Append the new card to the DataFrame
+    global df
+    new_card_df = pd.DataFrame([new_card])
+    df = pd.concat([df, new_card_df], ignore_index=True)
+    df.to_csv('data.csv', index=False)
+
+    return jsonify({'status': 'success', 'message': f"Card {new_card['id']} added"})
 
 if __name__ == '__main__':
     app.run(debug=True)

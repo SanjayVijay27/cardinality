@@ -36,11 +36,22 @@ d3.select("#addCard").on("click", function() {
  * @param {number} y - The y-coordinate of the new card.
  */
 function addCard(x, y) {
-    const newCardId = `card${cardsData.length + 1}`;
+    const newCardId = cardsData.length + 1;
     const newCardData = { id: newCardId, x, y, text: `Card ${cardsData.length + 1}` };
     cardsData.push(newCardData);
     renderCards(cardsData);
-}
 
+    fetch('/add_card', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            card_id: newCardId,
+            new_position: { x: x, y: y },
+            text: `Card ${cardsData.length}`
+        })
+    })
+}
 
 renderCards(cardsData);
