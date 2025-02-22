@@ -1,0 +1,78 @@
+<!-- filepath: templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Cards</title>
+    <style>
+        .card {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            padding: 10px;
+            background-color: lightblue;
+            border: 1px solid #ccc;
+            display: inline-block;
+            cursor: move;
+        }
+        .dropzone {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #ccc;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="cards">
+        <div class="card" draggable="true" id="card1">Card 1</div>
+        <div class="card" draggable="true" id="card2">Card 2</div>
+        <div class="card" draggable="true" id="card3">Card 3</div>
+    </div>
+    <div class="dropzone" id="dropzone"></div>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        const dropzone = document.getElementById('dropzone');
+
+        cards.forEach(card => {
+            card.addEventListener('dragstart', dragStart);
+        });
+
+        dropzone.addEventListener('dragover', dragOver);
+        dropzone.addEventListener('drop', drop);
+
+        function dragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.id);
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            const cardId = e.dataTransfer.getData('text/plain');
+            const card = document.getElementById(cardId);
+            dropzone.appendChild(card);
+
+            // Send the card position update to the server
+            fetch('/update_card_position', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    card_id: cardId,
+                    new_position: Array.from(dropzone.children).indexOf(card)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+        }
+    </script>
+</body>
+</html>
