@@ -38,11 +38,7 @@
     <script>
         const canvas = d3.select("#canvas");
 
-        const cardsData = [
-            { id: "card1", x: 50, y: 50, text: "Card 1" },
-            { id: "card2", x: 200, y: 50, text: "Card 2" },
-            { id: "card3", x: 350, y: 50, text: "Card 3" }
-        ];
+        const cardsData = {{ cards_data | tojson }};
 
         const cards = canvas.selectAll(".card")
             .data(cardsData)
