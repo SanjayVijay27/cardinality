@@ -1,4 +1,3 @@
-<!-- filepath: templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +21,6 @@
         .card {
             width: 150px;
             height: 150px;
-            margin: 10px;
             padding: 10px;
             background-color: lightblue;
             border: 1px solid #ccc;
@@ -40,71 +38,11 @@
         .card textarea.active {
             pointer-events: auto; /* Enable pointer events when active */
         }
-        svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        .arrow {
-            fill: none;
-            stroke: black;
-            stroke-width: 2px;
-            marker-end: url(#arrowhead);
-        }
-        .context-menu {
-            position: absolute;
-            display: none;
-            background-color: white;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-        .context-menu ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        .context-menu ul li {
-            padding: 8px 12px;
-            cursor: pointer;
-        }
-        .context-menu ul li:hover {
-            background-color: #eee;
-        }
-
-        .edgeMaker {
-            width: 10px;
-            height: 10px;
-            background-color: black;
-            border-radius: 50%;
-            position: absolute;
-            cursor: pointer;
-        }
-        .edgeMaker.hover, .card:hover .edgeMaker, .card.active .edgeMaker {
-            box-shadow: 0 0 50px yellow;
-        }
     </style>
 </head>
 <body>
     <div class="canvas" id="canvas"></div>
-    <svg id="svgCanvas">
-        <defs>
-            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" />
-            </marker>
-        </defs>
-    </svg>
-    <div class="context-menu" id="contextMenu">
-        <ul>
-            <li id="addCard">Add Card</li>
-        </ul>
-    </div>
-
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="{{ url_for('static', filename='init.js') }}"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

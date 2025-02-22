@@ -31,9 +31,9 @@ def update_data():
 
 @app.route('/init_data', methods=['GET'])
 def init_data():
-    #data = pd.read_csv('data.csv')
-    #return data.to_json()
-    return send_file('static/initialData.json', mimetype='application/json')
+    data = pd.read_csv('data.csv')
+    return data.to_json(orient='records')
+    #return send_file('static/initialData.json', mimetype='application/json')
 
 if __name__ == '__main__':
     app.run(debug=True)
