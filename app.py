@@ -36,6 +36,11 @@ def init_data():
     return data.to_json(orient='records')
     #return send_file('static/initialData.json', mimetype='application/json')
 
+@app.route('/get_data', methods=['GET'])
+def get_data():
+    data = df.to_json(orient='records')
+    return data
+
 @app.route('/add_card', methods=['POST'])
 def add_card():
     data = request.get_json()

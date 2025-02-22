@@ -53,7 +53,7 @@ function addCard(x, y) {
     const newCardId = cardsData.length + 1;
     const newCardData = { id: newCardId, x, y, text: `Card ${cardsData.length + 1}` };
     cardsData.push(newCardData);
-    renderCards(cardsData);
+    reRenderCards();
 
     fetch('/add_card', {
         method: 'POST',
@@ -74,7 +74,7 @@ function addCard(x, y) {
  */
 function deleteCard(cardId) {
     cardsData = cardsData.filter(card => card.id !== cardId);
-    renderCards(cardsData);
+    reRenderCards();
 
     fetch('/delete_card', {
         method: 'POST',
@@ -84,7 +84,35 @@ function deleteCard(cardId) {
         body: JSON.stringify({
             card_id: cardId
         })
+    })    
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
     });
+}
+
+/**
+ * Re-renders all cards from the cardsData.
+ */
+function reRenderCards() {
+    // Clear existing cards
+    canvas.selectAll(".card").remove();
+
+    d3.json("/get_data").then(data => {
+        console.log("Data fetched from /get_data:", data); // Debug log
+        cardsData = data; // Initialize cardsData with fetched data
+        
+        // Render the cards on the canvas
+        renderCards(cardsData); //ABSOLUTELY NECESSARY TO AVOID RACE CONDITION. 
+    
+    
+        // Render the data in rows within a column group
+        //renderColumnGroup(cardsData); // Render data in the sidebar
+    })
+
+
+    // Render cards from cardsData
+    renderCards(cardsData);
 }
 
 renderCards(cardsData);
