@@ -2,12 +2,6 @@ from table_functions import *
 
 from flask import Flask, render_template, request, jsonify, send_file
 import pandas as pd
-import openai
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-openai.api_key = os.getenv("API_KEY")
 
 app = Flask(__name__)
 
@@ -90,14 +84,13 @@ def gen_ai_output():
     data = request.get_json()
     user_prompt = data.get('input')
 
-    # Make a call to OpenAI API
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=user_prompt,
-        max_tokens=150
-    )
+    csv_string = df.to_csv(index=False)
 
-    output = response.choices[0].text.strip()
+    prompt = f"Read the following CSV data:\n{csv_string}\n\n. Now using that data, respond to the following command: {user_prompt}"
+
+    # api call here, store in output
+
+    output = "output"
 
     return jsonify({'output': output})
     
