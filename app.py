@@ -101,7 +101,7 @@ def gen_ai_output():
     csv_string = newdf.to_csv(index=False)
 
 
-    prompt = f"Read the following CSV data:\n{csv_string}\n\n. Now using that data, respond to the following command, and keep the answer concise, but show all your steps: {user_prompt}"
+    prompt = f"Read the following CSV data:\n{csv_string}\n\n. Output in regular text instead of markdown, meaning no use of '*' for boid. Now using that data, respond to the following command, and keep the answer concise, but show all your steps: {user_prompt}"
     
     client = genai.Client(api_key=googleai_apikey)
     response = client.models.generate_content(
