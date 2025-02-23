@@ -1,3 +1,5 @@
+from table_functions import *
+
 from flask import Flask, render_template, request, jsonify, send_file
 import pandas as pd
 
@@ -21,6 +23,7 @@ def update_card_position():
 
     # Update the DataFrame
     df.loc[df['id'] == card_id, ['x', 'y', 'text']] = new_position['x'], new_position['y'], data.get('text')
+    df = create_columns(df, data.get('text'), card_id)
     df.to_csv('data.csv', index=False)
 
     return jsonify({'status': 'success', 'message': f"Card {card_id} moved to position {new_position}"})
@@ -55,6 +58,7 @@ def add_card():
     global df
     new_card_df = pd.DataFrame([new_card])
     df = pd.concat([df, new_card_df], ignore_index=True)
+    df = create_columns(df, new_card['text'], new_card['id'])
     df.to_csv('data.csv', index=False)
 
     return jsonify({'status': 'success', 'message': f"Card {new_card['id']} added"})
