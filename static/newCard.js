@@ -49,15 +49,15 @@ d3.select("body").on("click", function() {
  * Adds a new card to the canvas.
  * @param {number} x - The x-coordinate of the new card.
  * @param {number} y - The y-coordinate of the new card.
+ * @param {string} textarea_text - The text content of the new card.
  */
 function addCard(x, y, textarea_text) {
-    console.log("HERE" + textarea_text)
-    if (textarea_text == undefined) {
+    if (textarea_text === undefined) {
         textarea_text = `Card ${nextCardId}`;
     }
-        
+
     const newCardId = nextCardId++;
-    const newCardData = { id: newCardId, x, y, text: textarea_text };
+    const newCardData = { id: newCardId, x, y, text: textarea_text, width: 150, height: 150 };
     cardsData.push(newCardData);
 
     fetch('/add_card', {
@@ -69,12 +69,51 @@ function addCard(x, y, textarea_text) {
             card_id: newCardId,
             new_position: { x: x, y: y },
             text: textarea_text,
-            width : 150,
-            height : 150
+            width: 150,
+            height: 150
         })
     })
     .then(() => reRenderCards());
-    
+}
+
+/**
+ * Adds a new card to the canvas with a specified ID.
+ * @param {number} x - The x-coordinate of the new card.
+ * @param {number} y - The y-coordinate of the new card.
+ * @param {string} textarea_text - The text content of the new card.
+ * @param {number} id - The ID of the card to copy.
+ */
+function addCardWithId(x, y, textarea_text, id) {
+    const originalCard = cardsData.find(card => card.id === id);
+    if (originalCard) {
+        const newCardId = nextCardId++;
+        const newCardData = {
+            id: newCardId,
+            x: originalCard.x,
+            y: originalCard.y + 20,
+            text: originalCard.text,
+            width: originalCard.width,
+            height: originalCard.height
+        };
+        cardsData.push(newCardData);
+
+        fetch('/add_card', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                card_id: newCardId,
+                new_position: { x: originalCard.x, y: originalCard.y + 30 },
+                text: originalCard.text,
+                width: originalCard.width,
+                height: originalCard.height
+            })
+        })
+        .then(() => reRenderCards());
+    } else {
+        addCard(x, y, textarea_text);
+    }
 }
 
 /**
@@ -82,7 +121,7 @@ function addCard(x, y, textarea_text) {
  * @param {string} cardId - The ID of the card to delete.
  */
 function deleteCard(cardId) {
-//cardsData = cardsData.filter(card => card.id !== cardId//);
+//cardsData = cardsData.filter//(card => card.id !== cardId//);
 //reRenderCards();
 
     fetch('/delete_card', {
@@ -99,9 +138,11 @@ function deleteCard(cardId) {
         console.log(data);
     })
     .then(() => reRenderCards());
-}
+}   
     
 
 
 
-renderCards(cardsData);
+
+
+

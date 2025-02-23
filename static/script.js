@@ -65,7 +65,7 @@ function addSidebarCardToCanvas(cardData) {
     //     y: 0, //cardData.y + 20, 
     //     text: cardData.text 
     // };
-    addCard(0, 0, cardData.text);
+    addCardWithId(0, 0, cardData.text, cardData.id);
     //cardsData.push(newCardData);
     //renderCards(cardsData);
 }
