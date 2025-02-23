@@ -29,20 +29,20 @@ function renderColumnGroup(data) {
         .style("flex", "1")
         .text(d => `ID: ${d.id}`);
 
-    rows.append("div")
-        .attr("class", "cell")
-        .style("flex", "1")
-        .text(d => `X: ${d.x}`);
+    // rows.append("div")
+    //     .attr("class", "cell")
+    //     .style("flex", "1")
+    //     .text(d => `X: ${d.x}`);
 
-    rows.append("div")
-        .attr("class", "cell")
-        .style("flex", "1")
-        .text(d => `Y: ${d.y}`);
+    // rows.append("div")
+    //     .attr("class", "cell")
+    //     .style("flex", "1")
+    //     .text(d => `Y: ${d.y}`);
 
-    rows.append("div")
-        .attr("class", "cell")
-        .style("flex", "2")
-        .text(d => `Text: ${d.text}`);
+    // rows.append("div")
+    //     .attr("class", "cell")
+    //     .style("flex", "2")
+    //     .text(d => `Text: ${d.text}`);
 }
 
 /**
