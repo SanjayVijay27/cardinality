@@ -20,16 +20,60 @@
             border-left: 1px solid #ccc;
             box-sizing: border-box;
             position: absolute;
-right: 0; /* Move the sidebar to the right side */
+            right: 0; /* Move the sidebar to the right side */
             z-index: 2; /* Ensure the sidebar is above the canvas */
+        }
+        .terminal {
+            width: 300px;
+            height: 100vh;
+            background-color: #333;
+            color: #fff;
+            border-left: 1px solid #ccc;
+            box-sizing: border-box;
+            position: absolute;
+            right: 250px; /* Position the terminal to the left of the sidebar */
+            z-index: 2; /* Ensure the terminal is above the canvas */
+            display: flex;
+            flex-direction: column;
+        }
+        .terminal textarea {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            resize: none;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .terminal .output {
+            flex: 8; /* 80% of the space */
+            overflow-y: auto;
+        }
+        .terminal .input-container {
+display: flex;
+            flex: 2; /* 20% of the space */
+            border-top: 1px solid #ccc;
+        }
+.terminal .input {
+            flex: 1;
+            border: none;
+            resize: none;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .terminal .output-button {
+            width: 50px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
         }
         .canvas {
             position: absolute;
-            right: 250px; /* Adjust the canvas position to not cover the sidebar */
-            width: calc(100vw - 250px); /* Adjust the canvas width to not cover the sidebar */
+            right: 550px; /* Adjust the canvas position to not cover the terminal and sidebar */
+            width: calc(100vw - 550px); /* Adjust the canvas width to not cover the terminal and sidebar */
             height: 100vh;
             background-color: #f0f0f0;
-            z-index: 1; /* Ensure the canvas is below the sidebar */
+            z-index: 1; /* Ensure the canvas is below the terminal and sidebar */
         }
         .card {
             width: 150px;
@@ -70,8 +114,15 @@ right: 0; /* Move the sidebar to the right side */
     </style>
 </head>
 <body>
-        <div class="canvas" id="canvas"></div>
-<div class="sidebar" id="sidebar"></div> <!-- ORDER MATTERS -->
+    <div class="canvas" id="canvas"></div>
+    <div class="terminal" id="terminal">
+        <textarea class="output"></textarea>
+        <div class="input-container">
+            <textarea class="input"></textarea>
+            <button class="output-button" id="outputButton">Send</button>
+        </div>
+    </div>
+    <div class="sidebar" id="sidebar"></div> <!-- ORDER MATTERS -->
 
     <div class="context-menu" id="contextMenu">
         <ul>
@@ -80,13 +131,30 @@ right: 0; /* Move the sidebar to the right side */
     </div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="{{ url_for('static', filename='initVars.js') }}"> </script>
-     <script src="{{ url_for('static', filename='renderFuncs.js') }}"> </script>
+    <script src="{{ url_for('static', filename='renderFuncs.js') }}"> </script>
 
-     <script src="{{ url_for('static', filename='newCard.js') }}"> </script>
+    <script src="{{ url_for('static', filename='newCard.js') }}"> </script>
 
-     <script src="{{ url_for('static', filename='script.js') }}"></script>
-
-    <script src="{{ url_for('static', filename='initRender.js') }}"> </script>
-
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='initRender.js') }}"></script>
+<script>
+        document.getElementById('outputButton').addEventListener('click', function() {
+            const inputText = document.querySelector('.terminal .input').value;
+            document.querySelector('.terminal .output').value += '\n' + inputText + ': \n';
+            fetch('/gen_ai_output', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input: inputText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('.terminal .output').value += '\n' + data.output + '\n';
+            })
+            .catch(error => 
+                {console.error('Error:', error); document.querySelector('.terminal .output').value += "something went wrong :( \n"; }); 
+        });
+    </script>
 </body>
 </html>
