@@ -2,6 +2,8 @@ from table_functions import *
 
 from flask import Flask, render_template, request, jsonify, send_file
 import pandas as pd
+from ollama import chat
+from ollama import ChatResponse
 
 app = Flask(__name__)
 
@@ -83,14 +85,22 @@ def delete_card():
 def gen_ai_output():
     data = request.get_json()
     user_prompt = data.get('input')
+    prompt_df = df.drop(columns=['text'], inplace=False)
 
-    csv_string = df.to_csv(index=False)
+    csv_string = prompt_df.to_csv(index=False)
 
-    prompt = f"Read the following CSV data:\n{csv_string}\n\n. Now using that data, respond to the following command: {user_prompt}"
+    prompt = f"Read the following CSV data:\n{csv_string}\n\n. Now using that data, respond to the following command and keep your explanation as short as possible: {user_prompt}"
 
-    # api call here, store in output
+    print("going in")
 
-    output = "output"
+    response: ChatResponse = chat(model='deepseek-r1', messages=[
+        {
+            'role': 'user',
+            'content': prompt,
+        },
+    ])
+
+    output = response['message']['content']
 
     return jsonify({'output': output})
     
