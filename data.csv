@@ -1,3 +1,7 @@
-id,x,y,text
-1,112,93,Card 1
-2,445,104,Card 2
+"id","x","y","text","breed","height"
+"1","699","599","My awesome cat
+
+breed::calico
+height::2","calico","2"
+"2","352","264","Card 2","",""
+"3","928","313","Card 3","",""
