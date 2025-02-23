@@ -3,10 +3,22 @@ from table_functions import *
 from flask import Flask, render_template, request, jsonify, send_file
 import pandas as pd
 
+from google import genai
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+googleai_apikey = os.getenv('API_KEY')
+
 app = Flask(__name__)
 
 # Load the initial data from the CSV file
 df = pd.read_csv('data.csv', quoting=1)
+
+
+
 
 @app.route('/')
 def index():
@@ -83,9 +95,23 @@ def delete_card():
 def gen_ai_output():
     data = request.get_json()
     user_prompt = data.get('input')
+    newdf = df.drop(columns=['width', 'height', 'x', 'y'])
+    newdf['text'] = newdf['text'].apply(lambda x: '\n'.join([line for line in x.split('\n') if '::' not in line]))
+    newdf['text'] = newdf['text'].str.replace('\n', ' ')
+    csv_string = newdf.to_csv(index=False)
 
 
-    AI_output = "This is the AI output"
+    prompt = f"Read the following CSV data:\n{csv_string}\n\n. Now using that data, respond to the following command, and keep the answer concise, but show all your steps: {user_prompt}"
+    
+    client = genai.Client(api_key=googleai_apikey)
+    response = client.models.generate_content(
+        model="gemini-2.0-flash", contents= prompt
+    )
+    #print(response.text)
+
+
+    AI_output = response.text
+    print(response.text)
 
     return jsonify({'output': AI_output})
     
