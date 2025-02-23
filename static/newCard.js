@@ -68,7 +68,9 @@ function addCard(x, y, textarea_text) {
         body: JSON.stringify({
             card_id: newCardId,
             new_position: { x: x, y: y },
-            text: textarea_text
+            text: textarea_text,
+            width : 150,
+            height : 150
         })
     })
     .then(() => reRenderCards());

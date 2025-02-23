@@ -23,7 +23,7 @@ def update_card_position():
 
     # Update the DataFrame
     global df
-    df.loc[df['id'] == card_id, ['x', 'y', 'text']] = new_position['x'], new_position['y'], data.get('text')
+    df.loc[df['id'] == card_id, ['x', 'y', 'text', 'width', 'height']] = new_position['x'], new_position['y'], data.get('text'), data.get('width'), data.get('height')
     df = create_columns(df, data.get('text'), card_id)
     df.to_csv('data.csv', index=False, quoting=1)
 
@@ -52,7 +52,9 @@ def add_card():
         'id': data.get('card_id'),
         'x': data.get('new_position')['x'],
         'y': data.get('new_position')['y'],
-        'text': data.get('text')
+        'text': data.get('text'),
+        'width': data.get('width'),
+        'height': data.get('height')
     }
 
     # Append the new card to the DataFrame
