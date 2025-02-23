@@ -1,0 +1,29 @@
+"id","x","y","text","width","height","liked"
+"1","73","26","Python
+
+liked::the best","150","109","the best"
+"2","72","166","JS
+
+liked::ehhh","150","109","ehhh"
+"3","63","455","RUST
+
+liked::awful","150","105","awful"
+"4","651","317","C
+
+liked::ok","150","108","ok"
+"5","258","161","java
+
+liked::usable but difficult
+","150","118","usable but difficult"
+"6","58","592","Go
+
+liked::unknown","150","105","unknown"
+"7","650","206","C#
+
+liked::difficult","150","98","difficult"
+"8","651","78","C++
+
+liked::better","150","107","better"
+"9","651","442","C flat
+
+liked::garbage","150","109","garbage"

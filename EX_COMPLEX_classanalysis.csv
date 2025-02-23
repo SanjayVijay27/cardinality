@@ -1,4 +1,4 @@
-"id","x","y","text","width","height","Difficulty","Annoying","Time (Hrs/week)","Fun? (Subjective)","Organization","Other Remarks","superspecial"
+"id","x","y","text","width","height","Difficulty","Annoying","Time (Hrs/week)","Fun? (Subjective)","Organization","Other Remarks"
 "1","175","80","ENGR 131
 Difficulty::1
 
@@ -11,7 +11,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Busy work
-","150","100","1.0","5.0","15","no","Good","Busy work",""
+","150","100","1","5","15","no","Good","Busy work"
 "2","15","16","MA 261
 Difficulty::4
 
@@ -24,7 +24,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::(weird grading tho)
-","150","88","4.0","3.0","20","no","Good","(weird grading tho)",""
+","150","88","4","3","20","no","Good","(weird grading tho)"
 "3","9","267","PHYS 172
 Difficulty::2
 
@@ -37,7 +37,7 @@ Fun? (Subjective)::eh
 Organization::Good
 
 Other Remarks::Busy work
-","150","100","2.0","4.0","20","eh","Good","Busy work",""
+","150","100","2","4","20","eh","Good","Busy work"
 "4","473","19","CHM 115
 Difficulty::2
 
@@ -50,7 +50,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Busy work
-","150","100","2.0","4.0","20","no","Good","Busy work",""
+","150","100","2","4","20","no","Good","Busy work"
 "5","312","138","WGSS 282
 Difficulty::1
 
@@ -63,7 +63,7 @@ Fun? (Subjective)::yes
 Organization::Good
 
 Other Remarks::
-","150","86","1.0","2.0","10","yes","Good","",""
+","150","86","1","2","10","yes","Good",""
 "6","310","103","COM 114 Test Out
 Difficulty::1
 
@@ -76,7 +76,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Test-out is worth btw
-","150","75","1.0","2.0","10 total","no","Good","Test-out is worth btw",""
+","150","75","1","2","10 total","no","Good","Test-out is worth btw"
 "7","13","101","ENGR 132
 Difficulty::1
 
@@ -89,7 +89,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Busy work
-","150","100","1.0","5.0","15","no","Good","Busy work",""
+","150","100","1","5","15","no","Good","Busy work"
 "8","349","554","MA 265 - Lin alg
 Difficulty::4
 
@@ -102,7 +102,7 @@ Fun? (Subjective)::no
 Organization::Awful
 
 Other Remarks::MA 265 and 266 have a lot of ajunct/new professors, very hit or miss
-","150","67","4.0","5.0","15","no","Awful","MA 265 and 266 have a lot of ajunct/new professors, very hit or miss",""
+","150","67","4","5","15","no","Awful","MA 265 and 266 have a lot of ajunct/new professors, very hit or miss"
 "9","8","356","CS 159
 Difficulty::2
 
@@ -115,7 +115,7 @@ Fun? (Subjective)::christianity tangents
 Organization::Good
 
 Other Remarks::Course content was very fun, but significantly harder if you're new to programming
-","150","100","2.0","1.0","15","christianity tangents","Good","Course content was very fun, but significantly harder if you're new to programming",""
+","150","100","2","1","15","christianity tangents","Good","Course content was very fun, but significantly harder if you're new to programming"
 "10","353","790","ECE 200001 - EE Fundamentals 1
 Difficulty::4
 
@@ -128,7 +128,7 @@ Fun? (Subjective)::eh
 Organization::Aight
 
 Other Remarks::
-","150","100","4.0","5.0","25","eh","Aight","",""
+","150","100","4","5","25","eh","Aight",""
 "11","358","709","ECE 200007 - EE Fundamentals 1 lab
 Difficulty::3
 
@@ -141,7 +141,7 @@ Fun? (Subjective)::yes
 Organization::Aight
 
 Other Remarks::
-","150","87","3.0","5.0","15","yes","Aight","",""
+","150","87","3","5","15","yes","Aight",""
 "12","25","784","Engr 103 A and B - Nanotechnology
 Difficulty::1
 
@@ -154,7 +154,7 @@ Fun? (Subjective)::yes
 Organization::Good
 
 Other Remarks::
-","150","100","1.0","1.0","5","yes","Good","",""
+","150","100","1","1","5","yes","Good",""
 "13","315","20","WGSS 482
 Difficulty::2
 
@@ -167,7 +167,7 @@ Fun? (Subjective)::yes
 Organization::Good
 
 Other Remarks::
-","150","100","2.0","1.0","10","yes","Good","",""
+","150","100","2","1","10","yes","Good",""
 "14","173","361","ECE 20875 - Python For Data Science
 Difficulty::3
 
@@ -180,7 +180,7 @@ Fun? (Subjective)::only after the code works
 Organization::Meh
 
 Other Remarks::Sometimes unclear instructions for hw
-","150","100","3.0","4.0","15","only after the code works","Meh","Sometimes unclear instructions for hw",""
+","150","100","3","4","15","only after the code works","Meh","Sometimes unclear instructions for hw"
 "15","23","687","MA 266
 Difficulty::3
 
@@ -193,7 +193,7 @@ Fun? (Subjective)::no
 Organization::Awful
 
 Other Remarks::
-","150","100","3.0","4.0","15","no","Awful","",""
+","150","100","3","4","15","no","Awful",""
 "16","345","608","ECE 29401 - ECE Sophomore Seminar
 Difficulty::1
 
@@ -206,7 +206,7 @@ Fun? (Subjective)::no
 Organization::Ok
 
 Other Remarks::
-","150","80","1.0","5.0","2","no","Ok","",""
+","150","80","1","5","2","no","Ok",""
 "17","532","795","ECE 20008 - EE Fundamentals II Lab
 Difficulty::3
 
@@ -219,7 +219,7 @@ Fun? (Subjective)::only when your circuit works
 Organization::Good
 
 Other Remarks::
-","150","100","3.0","4.0","15","only when your circuit works","Good","",""
+","150","100","3","4","15","only when your circuit works","Good",""
 "18","10","443","ECE 26400 - Advanced C Programming
 Difficulty::4
 
@@ -232,7 +232,7 @@ Fun? (Subjective)::eh
 Organization::Good
 
 Other Remarks::Lecture slides are quality
-","150","109","4.0","2.0","20","eh","Good","Lecture slides are quality",""
+","150","109","4","2","20","eh","Good","Lecture slides are quality"
 "19","0","592","PHYS 272
 Difficulty::2
 
@@ -245,7 +245,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Busy work
-","150","100","2.0","5.0","25","no","Good","Busy work",""
+","150","100","2","5","25","no","Good","Busy work"
 "20","528","545","CE 355
 Difficulty::1
 
@@ -258,7 +258,7 @@ Fun? (Subjective)::eh
 Organization::Good
 
 Other Remarks::Busy work
-","150","103","1.0","3.0","15","eh","Good","Busy work",""
+","150","103","1","3","15","eh","Good","Busy work"
 "21","528","705","ECE 20002 - EE Fundamentals II
 Difficulty::5
 
@@ -271,7 +271,7 @@ Fun? (Subjective)::no
 Organization::Awful
 
 Other Remarks::
-","150","100","5.0","5.0","20","no","Awful","",""
+","150","100","5","5","20","no","Awful",""
 "22","687","718","ECE 27000 - Intro To Digital System Design
 Difficulty::3
 
@@ -284,7 +284,7 @@ Fun? (Subjective)::yes
 Organization::Rick (so no)
 
 Other Remarks::Lecture slides are quality
-","150","104","3.0","3.0","25","yes","Rick (so no)","Lecture slides are quality",""
+","150","104","3","3","25","yes","Rick (so no)","Lecture slides are quality"
 "23","310","52","CSR 34200 - Personal Finance
 Difficulty::1
 
@@ -297,7 +297,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Class didn't teach me anything new, huge waste of time. Easy though
-","150","85","1.0","4.0","4","no","Good","Class didn't teach me anything new, huge waste of time. Easy though",""
+","150","85","1","4","4","no","Good","Class didn't teach me anything new, huge waste of time. Easy though"
 "24","841","487","VIP 47920 Senior VIP
 Difficulty::1
 
@@ -310,7 +310,7 @@ Fun? (Subjective)::depends on your group
 Organization::Aight
 
 Other Remarks::
-","150","100","1.0","2.0","5","depends on your group","Aight","",""
+","150","100","1","2","5","depends on your group","Aight",""
 "25","860","577","ECE 39401 - Junior Seminar
 Difficulty::1
 
@@ -323,7 +323,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Prof gave everyone a flat +30% at the end lmao
-","150","100","1.0","5.0","2","no","Good","Prof gave everyone a flat +30% at the end lmao",""
+","150","100","1","5","2","no","Good","Prof gave everyone a flat +30% at the end lmao"
 "26","873","713","ECE 30100 - Signals And Systems
 Difficulty::5
 
@@ -336,7 +336,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::
-","150","99","5.0","3.0","15","no","Good","",""
+","150","99","5","3","15","no","Good",""
 "27","829","404","VIP 37921
 Difficulty::1
 
@@ -349,7 +349,7 @@ Fun? (Subjective)::depends on your group
 Organization::Aight
 
 Other Remarks::
-","150","100","1.0","2.0","5","depends on your group","Aight","",""
+","150","100","1","2","5","depends on your group","Aight",""
 "28","175","448","ECE 305 - Semiconductor Fundamentals
 Difficulty::5
 
@@ -362,7 +362,7 @@ Fun? (Subjective)::no (bamboozled)
 Organization::Good
 
 Other Remarks::Thought it would be interesting, and it was, but math very scary
-","150","100","5.0","5.0","20","no (bamboozled)","Good","Thought it would be interesting, and it was, but math very scary",""
+","150","100","5","5","20","no (bamboozled)","Good","Thought it would be interesting, and it was, but math very scary"
 "29","316","447","ECE 30200 - Probabilistic Methods
 Difficulty::1
 
@@ -375,7 +375,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Only easy if you've taken a stats class before
-","150","100","1.0","2.0","10","no","Good","Only easy if you've taken a stats class before",""
+","150","100","1","2","10","no","Good","Only easy if you've taken a stats class before"
 "30","321","339","ECE 30411 - Electromagnetics I
 Difficulty::4
 
@@ -388,7 +388,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::Weinstein is pog
-","150","100","4.0","3.0","20","no","Good","Weinstein is pog",""
+","150","100","4","3","20","no","Good","Weinstein is pog"
 "31","172","235","ECE 36200 - Assembly + C
 Difficulty::5
 
@@ -401,7 +401,7 @@ Fun? (Subjective)::yes
 Organization::Rick (so no)
 
 Other Remarks::You'll meet all the cool ece kids in EE 069 (nice) at 4 AM
-","150","128","5.0","4.0","35","yes","Rick (so no)","You'll meet all the cool ece kids in EE 069 (nice) at 4 AM",""
+","150","128","5","4","35","yes","Rick (so no)","You'll meet all the cool ece kids in EE 069 (nice) at 4 AM"
 "32","1026","470","ECE 49022 - Senior Design
 Difficulty::3
 
@@ -414,7 +414,7 @@ Fun? (Subjective)::yes
 Organization::Good
 
 Other Remarks::
-","150","100","3.0","3.0","15","yes","Good","",""
+","150","100","3","3","15","yes","Good",""
 "33","462","281","ECE 49401 - Seminar
 Difficulty::1
 
@@ -427,7 +427,7 @@ Fun? (Subjective)::no
 Organization::Good
 
 Other Remarks::
-","150","100","1.0","5.0","3","no","Good","",""
+","150","100","1","5","3","no","Good",""
 "34","1018","22","ECE 433 - Power Electronics
 Difficulty::3
 
@@ -440,7 +440,7 @@ Fun? (Subjective)::eh
 Organization::Good
 
 Other Remarks::Pekarek pog
-","150","251","3.0","4.0","20","eh","Good","Pekarek pog",""
+","150","251","3","4","20","eh","Good","Pekarek pog"
 "35","1175","26","ECE 39595 - Software Eng Tools
 Difficulty::3
 
@@ -453,9 +453,4 @@ Fun? (Subjective)::eh
 Organization::Good
 
 Other Remarks::Previously ECE 364, good python/html/flask/js learning
-
-
-superspecial::10","150","394","3.0","2.0","15","eh","Good","Previously ECE 364, good python/html/flask/js learning","10.0"
-"36","769","117","taekwando
-
-time(","150","150","","","","","","",""
+","150","394","3","2","15","eh","Good","Previously ECE 364, good python/html/flask/js learning"

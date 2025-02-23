@@ -1,0 +1,46 @@
+"id","x","y","text","width","height","age","gender","skill"
+"1","29","25","Bob - senior dev
+
+age::50
+gender::male
+skill::9","150","150","50","male","9"
+"2","33","206","Jane - junior dev
+age::20
+gender::female
+skill::6","150","128","20","female","6"
+"3","210","207","Bill - junior dev
+age::22
+gender::male
+skill::5","150","128","22","male","5"
+"4","383","207","Felice - junior dev
+age::25
+gender::male
+skill::6","150","128","25","male","6"
+"5","38","384","Maulice - novice
+age::14
+gender::male
+skill::3","150","128","14","male","3"
+"6","208","387","jake- novice
+age::15
+gender::male
+skill::3","150","128","15","male","3"
+"7","393","382","dimensional copy 1 - novice
+age::16
+gender::male
+skill::3","150","128","16","male","3"
+"8","393","412","dimensional copy 1 - novice
+age::16
+gender::male
+skill::3","150","128","16","male","3"
+"9","395","445","dimensional copy 1 - novice
+age::16
+gender::male
+skill::3","150","128","16","male","3"
+"10","395","475","dimensional copy 1 - novice
+age::16
+gender::male
+skill::3","150","128","16","male","3"
+"11","395","505","dimensional copy 1 - novice
+age::16
+gender::male
+skill::3","150","128","16","male","3"

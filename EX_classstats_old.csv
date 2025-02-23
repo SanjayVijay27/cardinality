@@ -1,0 +1,56 @@
+"id","x","y","text","width","height","credits","grit","knowledge","required","critical"
+"1","20","308","ECE 20001
+
+credits::3
+grit::10
+knowledge::10
+required::true
+critical::true","150","134","3","10","10","true","true"
+"2","187","307","ECE 20002
+
+credits::3
+grit::9
+knowledge::10
+required::true
+critical::true","150","136","3","9","10","true","true"
+"3","79","414","ECE 20007
+
+credits::1
+grit::8
+knowledge::8
+required::true
+critical::true","150","150","1","8","8","true","true"
+"4","253","420","ECE 20008
+
+credits::1
+grit::9
+knowledge::9
+required::true","150","146","1","9","9","true",""
+"5","70","34","ECE 20875 - python
+
+credits::3
+grit::4
+required::true","150","143","3","4","","true",""
+"6","68","185","ECE 26400 - advanced C
+
+credits::3
+grit::7
+knowledge::7
+required::true","150","98","3","7","7","true",""
+"7","377","310","ECE 27000 - intro to system design
+
+credits::4
+grit::8
+knowledge::10
+required::true","150","150","4","8","10","true",""
+"8","284","587","ECE 30412 - Electromagnets 2
+
+credits:: 3
+grit:: 6
+knowledge:: 10
+","150","150"," 3"," 6"," 10","",""
+"9","445","585","ECE 26200 - microprocessors
+
+credits::4
+grit::10
+knowledge::7","150","150","4","10","7","",""

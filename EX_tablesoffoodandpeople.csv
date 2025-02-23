@@ -1,0 +1,20 @@
+"id","x","y","text","width","height","people","food needed","foodperperson","sight"
+"1","29","45","table 1
+
+people::5
+foodperperson::2","217","150","5","","2",""
+"6","482","43","eyeball
+
+sight::10","150","149","","","","10"
+"7","25","210","table 2
+
+people::15
+foodperperson::20","217","150","15","","20",""
+"8","25","386","table 3
+
+people::15
+foodperperson::2","217","150","15","","2",""
+"9","26","573","table 3
+
+people::10
+foodperperson::8","217","150","10","","8",""
