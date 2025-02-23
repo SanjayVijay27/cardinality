@@ -1,4 +1,4 @@
-"id","x","y","text","breed","height"
+"id","x","y","width", "height", "text","breed","height"
 "1","699","599","My awesome cat
 
 breed::calico
