@@ -1,3 +1,4 @@
+
 //creating a new card
 
 // Context menu event handler for the canvas
@@ -49,11 +50,15 @@ d3.select("body").on("click", function() {
  * @param {number} x - The x-coordinate of the new card.
  * @param {number} y - The y-coordinate of the new card.
  */
-function addCard(x, y) {
-    const newCardId = cardsData.length + 1;
-    const newCardData = { id: newCardId, x, y, text: `Card ${cardsData.length + 1}` };
+function addCard(x, y, textarea_text) {
+    console.log("HERE" + textarea_text)
+    if (textarea_text == undefined) {
+        textarea_text = `Card ${nextCardId}`;
+    }
+        
+    const newCardId = nextCardId++;
+    const newCardData = { id: newCardId, x, y, text: textarea_text };
     cardsData.push(newCardData);
-    
 
     fetch('/add_card', {
         method: 'POST',
@@ -63,10 +68,11 @@ function addCard(x, y) {
         body: JSON.stringify({
             card_id: newCardId,
             new_position: { x: x, y: y },
-            text: `Card ${cardsData.length}`
+            text: textarea_text
         })
-    });
-    reRenderCards();
+    })
+    .then(() => reRenderCards());
+    
 }
 
 /**
@@ -74,8 +80,8 @@ function addCard(x, y) {
  * @param {string} cardId - The ID of the card to delete.
  */
 function deleteCard(cardId) {
-    //cardsData = cardsData.filter(card => card.id !== cardId);
-    //reRenderCards();
+//cardsData = cardsData.filter(card => card.id !== cardId//);
+//reRenderCards();
 
     fetch('/delete_card', {
         method: 'POST',
@@ -89,35 +95,11 @@ function deleteCard(cardId) {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-    });
-
-    reRenderCards();
-}
-
-/**
- * Re-renders all cards from the cardsData.
- */
-function reRenderCards() {
-
-    
-    // Clear existing cards
-    canvas.selectAll(".card").remove();
-
-    d3.json("/get_data").then(data => {
-        console.log("Data fetched from /get_data:", data); // Debug log
-        cardsData = data; // Initialize cardsData with fetched data
-        
-        // Render the cards on the canvas
-        //renderCards(cardsData); //ABSOLUTELY NECESSARY TO AVOID RACE CONDITION. 
-        // Render cards from cardsData
-        renderCards(cardsData);
-    
-        // Render the data in rows within a column group
-        //renderColumnGroup(cardsData); // Render data in the sidebar
     })
-
-
-
+    .then(() => reRenderCards());
 }
+    
+
+
 
 renderCards(cardsData);
