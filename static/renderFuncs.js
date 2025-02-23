@@ -135,4 +135,27 @@ function sendCardUpdate(cardData) {
     });
 }
 
+/**
+ * Re-renders all cards from the cardsData.
+ */
+function reRenderCards() {
+    // Clear existing cards
+    canvas.selectAll(".card").remove();
+
+    //clear column
+    clearSidebar();
+
+    d3.json("/get_data").then(data => {
+        console.log("Data fetched from /get_data:", data); // Debug log
+        cardsData = data; // Initialize cardsData with fetched data
+        
+        // Render the cards on the canvas
+        renderCards(cardsData);
+
+        //render sidebar
+        renderColumnGroup(cardsData);
+
+    });
+}
+
 renderCards(cardsData);

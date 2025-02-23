@@ -46,19 +46,28 @@ function renderColumnGroup(data) {
 }
 
 /**
+ * Clears the sidebar by removing all child elements.
+ */
+function clearSidebar() {
+    sidebar.selectAll("*").remove();
+}
+
+
+/**
  * Adds a copy of the card to the canvas with a different ID.
  * @param {Object} cardData - The data of the card to copy.
  */
 function addSidebarCardToCanvas(cardData) {
-    const newCardId = cardsData.length + 1;
-    const newCardData = { 
-        id: newCardId, 
-        x: 0, //cardData.x + 20, // Offset the new card position slightly
-        y: 0, //cardData.y + 20, 
-        text: cardData.text 
-    };
-    cardsData.push(newCardData);
-    renderCards(cardsData);
+    // const newCardId = nextCardId++;
+    // const newCardData = { 
+    //     id: newCardId, 
+    //     x: 0, //cardData.x + 20, // Offset the new card position slightly
+    //     y: 0, //cardData.y + 20, 
+    //     text: cardData.text 
+    // };
+    addCard(0, 0, cardData.text);
+    //cardsData.push(newCardData);
+    //renderCards(cardsData);
 }
 
 // Select the sidebar element
