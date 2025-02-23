@@ -80,5 +80,16 @@ def delete_card():
 
     return jsonify({'status': 'success', 'message': f"Card {id} deleted"})
 
+@app.route('/gen_ai_output', methods=['POST'])
+def gen_ai_output():
+    data = request.get_json()
+    user_prompt = data.get('input')
+
+
+    AI_output = "This is the AI output"
+
+    return jsonify({'output': AI_output})
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
