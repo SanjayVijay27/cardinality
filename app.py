@@ -2,6 +2,7 @@ from table_functions import *
 
 from flask import Flask, render_template, request, jsonify, send_file
 import pandas as pd
+import openai
 
 app = Flask(__name__)
 
