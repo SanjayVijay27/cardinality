@@ -1,10 +1,12 @@
+from table_functions import *
+
 from flask import Flask, render_template, request, jsonify, send_file
 import pandas as pd
 
 app = Flask(__name__)
 
 # Load the initial data from the CSV file
-df = pd.read_csv('data.csv')
+df = pd.read_csv('data.csv', quoting=1)
 
 @app.route('/')
 def index():
@@ -20,8 +22,10 @@ def update_card_position():
     new_position = data.get('new_position')
 
     # Update the DataFrame
+    global df
     df.loc[df['id'] == card_id, ['x', 'y', 'text']] = new_position['x'], new_position['y'], data.get('text')
-    df.to_csv('data.csv', index=False)
+    df = create_columns(df, data.get('text'), card_id)
+    df.to_csv('data.csv', index=False, quoting=1)
 
     return jsonify({'status': 'success', 'message': f"Card {card_id} moved to position {new_position}"})
 
@@ -55,7 +59,8 @@ def add_card():
     global df
     new_card_df = pd.DataFrame([new_card])
     df = pd.concat([df, new_card_df], ignore_index=True)
-    df.to_csv('data.csv', index=False)
+    df = create_columns(df, new_card['text'], new_card['id'])
+    df.to_csv('data.csv', index=False, quoting=1)
 
     return jsonify({'status': 'success', 'message': f"Card {new_card['id']} added"})
 
@@ -68,7 +73,7 @@ def delete_card():
     # Delete the card from the dataframe
     global df
     df = df[df['id'].astype(str) != str(id)]
-    df.to_csv('data.csv', index=False)
+    df.to_csv('data.csv', index=False, quoting=1)
 
     return jsonify({'status': 'success', 'message': f"Card {id} deleted"})
 
