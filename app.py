@@ -110,11 +110,13 @@ def gen_ai_output():
     #print(response.text)
 
 
+
     AI_output = response.text
     print(response.text)
 
     return jsonify({'output': AI_output})
-    
+
+#test prompt: How much food is needed to feed all the tables? The food per table is calculated by the people * the food needed
 
 if __name__ == '__main__':
     app.run(debug=True)
