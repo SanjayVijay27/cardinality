@@ -15,8 +15,8 @@ function renderCards(data) {
         .style("left", d => `${d.x}px`)
         .style("top", d => `${d.y}px`)
         .style("position", "absolute")
-        .style("width", "150px")
-        .style("height", "150px")
+        .style("width", d => `${d.width}px`)
+        .style("height", d => `${d.height}px`)
         .style("background-color", "lightblue")
         .style("border", "1px solid #ccc")
         .style("padding", "10px")
@@ -49,7 +49,7 @@ function renderCards(data) {
         .attr("value", d => d.text)
         .text(d => d.text)
         .style("width", "100%")
-        .style("height", "80%")
+        .style("height", "90%")
         .style("box-sizing", "border-box")
         .style("resize", "none")
         .style("overflow", "auto")
@@ -68,6 +68,45 @@ function renderCards(data) {
             cardData.text = this.value;
             sendCardUpdate(cardData); // Call sendCardUpdate when text is edited
         });
+
+    // Add resize handles
+    newCards.append("div")
+        .attr("class", "resize-handle right")
+        .style("position", "absolute")
+        .style("right", "0")
+        .style("top", "0")
+        .style("width", "10px")
+        .style("height", "100%")
+        .style("cursor", "ew-resize")
+        .call(d3.drag()
+            .on("drag", function(event, d) {
+                const card = d3.select(this.parentNode);
+                const newWidth = parseFloat(card.style("width")) + event.dx;
+                card.style("width", `${newWidth}px`);
+                card.select("textarea").style("width", "100%");
+                d.width = newWidth; // Update the width in the data
+                sendCardUpdate(d); // Call sendCardUpdate when width is changed
+            })
+        );
+
+    newCards.append("div")
+        .attr("class", "resize-handle bottom")
+        .style("position", "absolute")
+        .style("left", "0")
+        .style("bottom", "0")
+        .style("width", "100%")
+        .style("height", "10px")
+        .style("cursor", "ns-resize")
+        .call(d3.drag()
+            .on("drag", function(event, d) {
+                const card = d3.select(this.parentNode);
+                const newHeight = parseFloat(card.style("height")) + event.dy; 
+                card.style("height", `${newHeight}px`);
+                card.select("textarea").style("height", "calc(100% - 20px)");
+                d.height = newHeight; // Update the height in the data
+                sendCardUpdate(d); // Call sendCardUpdate when height is changed
+            })
+        );
 
     cards.exit().remove();
 }
@@ -126,7 +165,9 @@ function sendCardUpdate(cardData) {
         body: JSON.stringify({
             card_id: cardData.id,
             new_position: { x: cardData.x, y: cardData.y },
-            text: cardData.text
+            text: cardData.text,
+            width: cardData.width,
+            height: cardData.height
         })
     })
     .then(response => response.json())
